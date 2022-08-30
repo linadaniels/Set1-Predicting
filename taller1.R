@@ -20,3 +20,4 @@ my_df8 <- as.data.frame(read_html(urldf[8])%>% html_elements(xpath = "//table") 
 my_df9 <- as.data.frame(read_html(urldf[9])%>% html_elements(xpath = "//table") %>% html_table() )
 my_df10 <- as.data.frame(read_html(urldf[10])%>% html_elements(xpath = "//table") %>% html_table() )
 
+
