@@ -30,4 +30,35 @@ df
 #df
 df = subset(df, age > 18)
 df
+## mostrar estructura
+str(df)
 
+##  descriptive statistics table. 
+library(vtable)
+sumtable(df)
+st(df)
+
+## out
+data(df)
+sumtable(df)
+vartable <- vtable(df,out='return')
+
+##into my LaTeX doc:
+vt(df, out='latex',file='mytable1.tex')
+
+data(df)
+st(df,file='df')
+
+
+##reg
+library(ggplot2)
+
+ggplot(
+  df,
+  aes(edad,directorio)
+)+
+  geom_point()+
+  geom_smooth(
+    method = "lm",
+    se =FALSE
+  )
