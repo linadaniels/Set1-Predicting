@@ -30,10 +30,13 @@ df
 #df
 df = subset(df, age > 18)
 df
+keeps<-c("age","clase","college","depto","dsi","formal","ingtot","ingtotob","maxEducLevel","ocu","pet","sex")
+df=df[keeps]
 ## mostrar estructura
 str(df)
 
 ##  descriptive statistics table. 
+install.packages("vtable")
 library(vtable)
 sumtable(df)
 st(df)
