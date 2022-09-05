@@ -25,16 +25,12 @@ my_df10 <- as.data.frame(read_html(urldf[10])%>% html_elements(xpath = "//table"
 
 df = rbind(my_df1,my_df2, my_df3,my_df4,my_df5, my_df6, my_df7, my_df8, my_df9, my_df10)
 
-for(x in 2:10){
-  my_df[x]<-NULL
-}
-
 #ahora se eliminan los menores de edad
 df = subset(df, age > 18)
 df
 
   #vamos a eliminar las variables no necesarias para el modelo
-keeps<-c("age","clase","college","depto","dsi","formal","y_total_m","maxEducLevel","ocu","pet","sex")
+keeps<-c("age","clase","college","dsi","formal","y_total_m","maxEducLevel","sex")
 df=df[keeps]
 df
 #eliminamos los ingresos iguales a 0
