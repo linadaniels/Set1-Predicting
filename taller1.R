@@ -1,9 +1,5 @@
 library("rvest")
-
-#url <- "https://ignaciomsarmiento.github.io/GEIH2018_sample/pages/geih_page_1.html"
-
-#html <- read_html(url)
-#html %>% html_elements(xpath = "//table") %>% html_table()
+#Otencion de datos a traves de scraping de la pagina que nos da el enunciado
 urldf<-c() 
 for(x in 1:10){
   url <- paste0("https://ignaciomsarmiento.github.io/GEIH2018_sample/pages/geih_page_",x,".html", sep="")
@@ -22,16 +18,19 @@ my_df10 <- as.data.frame(read_html(urldf[10])%>% html_elements(xpath = "//table"
 
 df = rbind(my_df1,my_df2, my_df3,my_df4,my_df5, my_df6, my_df7, my_df8, my_df9, my_df10)
 df
-#col<-colnames(df)
-#col
-#df[,"age"]>18
-#df = filter(df,"age" > 18)
-#colnames(df)<- col
-#df
+for(x in 2:10){
+my_df[x]<-NULL
+}
+#ahora se eliminan los menores de edad
 df = subset(df, age > 18)
 df
+#vamos a eliminar las variables no necesarias para el modelo
 keeps<-c("age","clase","college","depto","dsi","formal","ingtot","ingtotob","maxEducLevel","ocu","pet","sex")
 df=df[keeps]
+df
+#eliminamos los ingresos iguales a 0
+df = subset(df, ingtot > 0.0)
+
 ## mostrar estructura
 str(df)
 
@@ -54,14 +53,23 @@ st(df,file='df')
 
 
 ##reg
-library(ggplot2)
+#library(ggplot2)
 
-ggplot(
-  df,
-  aes(edad,directorio)
-)+
-  geom_point()+
-  geom_smooth(
-    method = "lm",
-    se =FALSE
-  )
+#ggplot(
+  #df,
+ # aes(edad,directorio)
+#)+
+ # geom_point()+
+#  geom_smooth(df=cbind(df,agec)
+  #  method = "lm",
+ #   se =FALSE
+#  )
+#regresiones
+install.packages("apaTables")
+library(apaTables)
+agec<-df$age*df$age
+
+regage<-lm(ingtot ~ age+agec, data = df)
+summary(regage)$coefficient
+apa.reg.table(regage, filename= "regresionedad.doc", table.number= 1)
+
