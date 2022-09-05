@@ -22,16 +22,15 @@ my_df10 <- as.data.frame(read_html(urldf[10])%>% html_elements(xpath = "//table"
 
 df = rbind(my_df1,my_df2, my_df3,my_df4,my_df5, my_df6, my_df7, my_df8, my_df9, my_df10)
 df
-#col<-colnames(df)
-#col
-#df[,"age"]>18
-#df = filter(df,"age" > 18)
-#colnames(df)<- col
-#df
+#ahora se eliminan los menores de edad
 df = subset(df, age > 18)
 df
+#vamos a eliminar las variables no necesarias para el modelo
 keeps<-c("age","clase","college","depto","dsi","formal","ingtot","ingtotob","maxEducLevel","ocu","pet","sex")
 df=df[keeps]
+df
+df = subset(df, - df = NA)
+
 ## mostrar estructura
 str(df)
 
