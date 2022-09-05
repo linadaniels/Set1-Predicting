@@ -68,5 +68,6 @@ ggplot(
 agec<-df$age*df$age
 
 regage<-lm(ingtot ~ age+agec, data = df)
-summary(regage)
+summary(regage)$coefficient
+
 
