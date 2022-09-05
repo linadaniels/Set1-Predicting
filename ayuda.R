@@ -89,3 +89,10 @@ apa.reg.table(regfem, filename= "regresiongenero.doc", table.number= 1)
 regult<-lm(log_ing ~ fem+age+formal+college, data = df)
 summary(regult)$coefficient
 apa.reg.table(regult, filename= "regresionult.doc", table.number= 1)
+install.packages('NNS')
+library('NNS')
+y<-df$y_total_m
+B<-df
+keeping<-c("age","college","formal","y_total_m","maxEducLevel","fem")
+B=B[keeping]
+NNS.FWL(B,y,linear.test=TRUE)
