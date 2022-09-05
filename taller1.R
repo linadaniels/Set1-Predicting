@@ -53,21 +53,23 @@ st(df,file='df')
 
 
 ##reg
-library(ggplot2)
+#library(ggplot2)
 
-ggplot(
-  df,
-  aes(edad,directorio)
-)+
-  geom_point()+
-  geom_smooth(df=cbind(df,agec)
-    method = "lm",
-    se =FALSE
-  )
+#ggplot(
+  #df,
+ # aes(edad,directorio)
+#)+
+ # geom_point()+
+#  geom_smooth(df=cbind(df,agec)
+  #  method = "lm",
+ #   se =FALSE
+#  )
 #regresiones
+install.packages("apaTables")
+library(apaTables)
 agec<-df$age*df$age
 
 regage<-lm(ingtot ~ age+agec, data = df)
 summary(regage)$coefficient
-
+apa.reg.table(regage, filename= "regresionedad.doc", table.number= 1)
 
