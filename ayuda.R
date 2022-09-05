@@ -84,6 +84,11 @@ summary(regfem)$coefficient
 library("apaTables")
 apa.reg.table(regfem, filename= "regresiongenero.doc", table.number= 1)
 
+#Grafica Modelo 2
+ggplot(df,aes(fem,y_total_m)) +
+  geom_point() +
+  geom_smooth(method='lm') 
+
 #para el punto 6 de las 3 regresiones se hara asi
 
 regult<-lm(log_ing ~ fem+age+formal+college, data = df)
