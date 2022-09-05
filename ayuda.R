@@ -81,8 +81,11 @@ df$fem<-ifelse(df$sex==1,0,1)
 df$log_ing<-log(df$y_total_m)
 regfem<-lm(log_ing ~ fem, data = df)
 summary(regfem)$coefficient
-apa.reg.table(regage, filename= "regresiongenero.doc", table.number= 1)
+library("apaTables")
+apa.reg.table(regfem, filename= "regresiongenero.doc", table.number= 1)
+
 #para el punto 6 de las 3 regresiones se hara asi
-regult<-lm(log_ing ~ fem+age+formal+dsi+, data = df)
-summary(regfem)$coefficient
-apa.reg.table(regage, filename= "regresiongenero.doc", table.number= 1)
+
+regult<-lm(log_ing ~ fem+age+formal+college, data = df)
+summary(regult)$coefficient
+apa.reg.table(regult, filename= "regresionult.doc", table.number= 1)
