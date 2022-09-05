@@ -52,21 +52,9 @@ sumtable(df)
 vartable <- vtable(df,out='return')
 
 
-##reg
-#library(ggplot2)
+####Regresiones
 
-#ggplot(
-#df,
-# aes(edad,directorio)
-#)+
-# geom_point()+
-#  geom_smooth(df=cbind(df,agec)
-#  method = "lm",
-#   se =FALSE
-#  )
-
-#regresiones
-#Primero hacemos la regresion con la edad - Modelo 1
+#Regresion con la edad - Modelo 1
 install.packages("apaTables")
 library(apaTables)
 agec<-df$age*df$age
@@ -75,6 +63,18 @@ regage<-lm(y_total_m ~ age+agec, data = df)
 summary(regage)$coefficient
 apa.reg.table(regage, filename= "regresionedad.doc", table.number= 1)
 
+#ggplot Modelo 1
+library(ggplot2)
+
+ggplot(df,aes(age,y_total_m)) +
+  geom_point() +
+  geom_smooth(method='lm') 
+
+ggplot(df,aes(agec,y_total_m)) +
+  geom_point() +
+  geom_smooth(method='lm') 
+
+#Regresion con el genero - Modelo 2
 #ahora hacemos la regresion con genero
 
 df$fem<-ifelse(df$sex==1,0,1)
