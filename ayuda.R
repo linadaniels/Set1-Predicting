@@ -2,6 +2,7 @@
 library("rvest")
 library ("vtable")
 library("kableExtra")
+library("tidyverse")
 
 ##Obtencion de datos a traves de scraping de la pagina que nos da el enunciado
 #Datos de la Gran encuesta integral de hogares (GEIH 2018)
@@ -31,16 +32,14 @@ for(x in 2:10){
 #ahora se eliminan los menores de edad
 df = subset(df, age > 18)
 df
-#Se limpia la base para que solo la conformes quienes estan en bogota
-df = 
-  
+
   #vamos a eliminar las variables no necesarias para el modelo
-  keeps<-c("age","clase","college","depto","dsi","formal","ingtot","ingtotob","maxEducLevel","ocu","pet","sex")
+keeps<-c("age","clase","college","depto","dsi","formal","y_total_m","maxEducLevel","ocu","pet","sex")
 df=df[keeps]
 df
 #eliminamos los ingresos iguales a 0
-df = subset(df, ingtot > 0.0)
-
+#df = subset(df, y_total_m == NA)
+df %>% drop_na(y_total_m)
 ## mostrar estructura
 str(df)
 
@@ -74,24 +73,25 @@ st(df,file='df')
 #  method = "lm",
 #   se =FALSE
 #  )
+
 #regresiones
 #Primero hacemos la regresion con la edad
 install.packages("apaTables")
 library(apaTables)
 agec<-df$age*df$age
 
-regage<-lm(ingtot ~ age+agec, data = df)
+regage<-lm(y_total_m ~ age+agec, data = df)
 summary(regage)$coefficient
 apa.reg.table(regage, filename= "regresionedad.doc", table.number= 1)
 
 #ahora hacemos la regresion con genero
 
 df$fem<-ifelse(df$sex==1,0,1)
-df$logingtot<-log(df$ingtot)
-regfem<-lm(logingtot ~ fem, data = df)
+df$log_ing<-log(df$y_total_m)
+regfem<-lm(log_ing ~ fem, data = df)
 summary(regfem)$coefficient
 apa.reg.table(regage, filename= "regresiongenero.doc", table.number= 1)
 #para el punto 6 de las 3 regresiones se hara asi
-regult<-lm(logingtot ~ fem+age+formal+dsi+, data = df)
+regult<-lm(log_ing ~ fem+age+formal+dsi+, data = df)
 summary(regfem)$coefficient
 apa.reg.table(regage, filename= "regresiongenero.doc", table.number= 1)
