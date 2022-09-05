@@ -60,7 +60,13 @@ ggplot(
   aes(edad,directorio)
 )+
   geom_point()+
-  geom_smooth(
+  geom_smooth(df=cbind(df,agec)
     method = "lm",
     se =FALSE
   )
+#regresiones
+agec<-df$age*df$age
+
+reg1<-lm(ingtot ~ age,agec, data = df)
+reg1
+drop(reg1)
