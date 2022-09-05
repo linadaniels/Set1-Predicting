@@ -67,6 +67,6 @@ ggplot(
 #regresiones
 agec<-df$age*df$age
 
-reg1<-lm(ingtot ~ age,agec, data = df)
-reg1
-drop(reg1)
+regage<-lm(ingtot ~ age+agec, data = df)
+summary(regage)
+
