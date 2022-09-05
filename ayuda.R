@@ -29,7 +29,7 @@ df = rbind(my_df1,my_df2, my_df3,my_df4,my_df5, my_df6, my_df7, my_df8, my_df9, 
 df = subset(df, age > 18)
 df
 
-  #vamos a eliminar las variables no necesarias para el modelo
+#vamos a eliminar las variables no necesarias para el modelo
 keeps<-c("age","clase","college","dsi","formal","y_total_m","maxEducLevel","sex")
 df=df[keeps]
 df
