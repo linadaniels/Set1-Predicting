@@ -30,14 +30,15 @@ df = subset(df, age > 18)
 df
 
 #vamos a eliminar las variables no necesarias para el modelo
-keeps<-c("age","clase","college","dsi","formal","y_total_m","maxEducLevel","sex")
+keeps<-c("age","college","formal","y_total_m","maxEducLevel","sex")
 df=df[keeps]
 df
 #eliminamos los ingresos iguales a 0
-#df = subset(df, y_total_m == NA)
-df %>% drop_na(y_total_m)
+
+df <- df[!is.na(df$y_total_m),]
+
 ## mostrar estructura
-str(df)
+str<-str(df)
 
 ##  descriptive statistics table. 
 install.packages("vtable")
@@ -49,12 +50,6 @@ st(df)
 data(df)
 sumtable(df)
 vartable <- vtable(df,out='return')
-
-##into my LaTeX doc:
-vt(df, out='latex',file='mytable1.tex')
-
-data(df)
-st(df,file='df')
 
 
 ##reg
@@ -71,7 +66,7 @@ st(df,file='df')
 #  )
 
 #regresiones
-#Primero hacemos la regresion con la edad
+#Primero hacemos la regresion con la edad - Modelo 1
 install.packages("apaTables")
 library(apaTables)
 agec<-df$age*df$age
