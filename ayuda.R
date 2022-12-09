@@ -101,3 +101,22 @@ B<-df
 keeping<-c("age","college","formal","y_total_m","maxEducLevel","fem")
 B=B[keeping]
 NNS.FWL(B,y,linear.test=TRUE)
+
+
+##
+### Estadisticas descriptivas train
+str_train<-str(tr_hog_d)
+sumtable(tr_hog_d)
+#exportamos
+data(tr_hog_d)
+sumtable(tr_hog_d)
+vartable1<- vtable(tr_hog_d,out='return')
+vartable1
+
+###   Estadisticas descriptivas test
+#str_test<-str(te_hog_d)
+#sumtable(te_hog_d)
+#  exportamos
+#data(te_hog_d)
+#sumtable(te_hog_d)
+#vartable <- vtable(te_hog_d,out='return')
